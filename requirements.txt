@@ -1,0 +1,4 @@
+seaborn
+Pandas
+numpy 
+-e .
