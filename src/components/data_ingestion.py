@@ -1,12 +1,16 @@
 import os 
-import sys 
+import sys
+import pandas as pd
+
 from src.exceptions import CustomException
 from src.logger import logging
-import pandas as pd
+
 
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
 
+from src.components.data_transformation import DataTransformation
+from src.components.data_transformation import Datatransformationconfig
 
 @dataclass
 class DataIngestionConfig:
@@ -46,13 +50,13 @@ class DataInjection:
             train_set.to_csv(self.injection_config.train_data_path, index = False , header = True)
             test_set.to_csv(self.injection_config.test_data_path, index = False , header = True)
 
-            logging.info("Creating (injection) of Data (Training , Test and raw_data)")
+            logging.info("Creating (injection) of Data (Training , Test or raw_data completed)")
              
             ### this Return is done so that i can use these some where else if need be 
             return (
                 self.injection_config.train_data_path, 
-                self.injection_config.test_data_path,
-                self.injection_config.raw_data_path
+                self.injection_config.test_data_path
+                #self.injection_config.raw_data_path 
             )
         except Exception as e:
             raise CustomException(e, sys)
@@ -60,6 +64,11 @@ class DataInjection:
 if __name__ == '__main__':
     obj = DataInjection()
     obj.initiate_data_injection()
+    train_data , test_data = obj.initiate_data_injection()
+
+    data_transformation = DataTransformation()
+    data_transformation.intiate_data_transformation(train_data, test_data)
+
  
 
 
