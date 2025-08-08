@@ -99,8 +99,8 @@ class DataTransformation:  #### Function is responsible for data transformation
 
             logging.info(f"Saved preprocessing object")
 
-            ####Ensure path exists
-            os.makedirs(os.path.dirname(self.data_transformation_config.preprocessor_obj_file_path),exist_ok = True)
+            ####Ensure path exists but this is done from the utlis file , if not done ensure
+            ###os.makedirs(os.path.dirname(self.data_transformation_config.preprocessor_obj_file_path),exist_ok = True)
 
             save_object(
                   file_path = self.data_transformation_config.preprocessor_obj_file_path,
